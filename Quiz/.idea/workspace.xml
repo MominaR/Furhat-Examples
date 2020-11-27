@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ca315b22-fe71-4ed5-8091-712671c0aabc" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Quiz" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1knRKGnXguIVCjWbDqNoSkrFtP4" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="show.unlinked.gradle.project.popup" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="MainKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <module name="Quiz.main" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="furhatos.app.quiz.MainKt" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Kotlin.MainKt" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ca315b22-fe71-4ed5-8091-712671c0aabc" name="Default Changelist" comment="" />
+      <created>1606334303557</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1606334303557</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="649" height="189" key="GridCell.Tab.0.bottom" timestamp="1606402592138">
+      <screen x="67" y="27" width="1373" height="782" />
+    </state>
+    <state width="649" height="189" key="GridCell.Tab.0.bottom/67.27.1373.782@67.27.1373.782" timestamp="1606402592138" />
+    <state width="649" height="189" key="GridCell.Tab.0.center" timestamp="1606402592138">
+      <screen x="67" y="27" width="1373" height="782" />
+    </state>
+    <state width="649" height="189" key="GridCell.Tab.0.center/67.27.1373.782@67.27.1373.782" timestamp="1606402592138" />
+    <state width="649" height="189" key="GridCell.Tab.0.left" timestamp="1606402592138">
+      <screen x="67" y="27" width="1373" height="782" />
+    </state>
+    <state width="649" height="189" key="GridCell.Tab.0.left/67.27.1373.782@67.27.1373.782" timestamp="1606402592138" />
+    <state width="649" height="189" key="GridCell.Tab.0.right" timestamp="1606402592138">
+      <screen x="67" y="27" width="1373" height="782" />
+    </state>
+    <state width="649" height="189" key="GridCell.Tab.0.right/67.27.1373.782@67.27.1373.782" timestamp="1606402592138" />
+  </component>
+</project>
