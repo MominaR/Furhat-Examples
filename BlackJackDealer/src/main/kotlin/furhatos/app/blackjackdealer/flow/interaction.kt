@@ -26,7 +26,7 @@ val Greet : State = state(Interaction) {
     }
 }
 
-val PlayingARound = state {
+val PlayingARound : State = state(Interaction) {
     onEntry {
         random(
                 { furhat.ask("Do you want me to tell you the rules for the game?") }
