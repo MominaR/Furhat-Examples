@@ -5,6 +5,7 @@ import furhatos.flow.kotlin.*
 import furhatos.nlu.common.*
 import furhatos.util.Language
 import furhatos.app.blackjackdealer.nlu.*
+import furhatos.gestures.Gestures
 
 var furhatHand = Hand()
 
@@ -36,6 +37,7 @@ val AskForRules : State = state(Interaction) {
     }
 
     onResponse<Yes> {
+        furhat.say("Sure!")
         furhat.say(rules)
         furhat.say("Now, you know the rules, let's play!")
         goto(PlayingARound)
@@ -55,18 +57,38 @@ fun GenerateCard(): Card {
 
 val PlayingARound : State = state(Interaction) {
     onEntry {
+        furhatHand.clearHand()
+        users.current.hand.clearHand()
         // Randomnly generating the cards
         users.current.hand.addCard(GenerateCard())
         users.current.hand.addCard(GenerateCard())
+        val userScore = users.current.hand.getScore()
         furhat.say("Your first card is ${users.current.hand.getCard(0).toText()}")
         furhat.say("Your second card is ${users.current.hand.getCard(1).toText()}")
+        if (userScore == 21) {
+            furhat.gesture(Gestures.Smile)
+            random(
+                    {furhat.say("Wow! You got blackjack! You win!") },
+                    {furhat.say("Winner winner, chicken dinner! Blackjack, you win!") }
+            )
+            goto(Idle)
+        }
+        random(
+                {furhat.say("Your score is $userScore.") },
+                {furhat.say("This totals $userScore.") }
+        )
         furhatHand.addCard(GenerateCard())
         furhat.say("My face up card is ${furhatHand.getCard(0).toText()}")
         furhat.ask("What is your move?")
     }
 
     onReentry {
-        furhat.ask("What is your next move? Hit or Stand?")
+        random(
+                {furhat.ask("What is your move?")},
+                {furhat.ask("What is your next move?")},
+                {furhat.ask("What is your next move? Hit or Stand?")},
+                {furhat.ask("What do you want to do?")}
+        )
     }
 
     onResponse<Hit> {
@@ -103,6 +125,12 @@ val PlayingARound : State = state(Interaction) {
             furhat.say("Our scores were equal. It's a draw!")
         }
         goto(Idle)
+    }
+
+    onResponse<RequestOptions> {
+        furhat.say("For another card, say 'hit'.")
+        furhat.say("Otherwise, say 'stand'.")
+        reentry()
     }
 
 

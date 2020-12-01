@@ -37,4 +37,16 @@ class Stand : Intent() {
     }
 }
 
+class RequestOptions : Intent() {
+    override fun getExamples(lang: Language): List<String> {
+        return listOf(
+                "what are my options",
+                "options?",
+                "what can I do",
+                "what moves can I make",
+                "my options?"
+        )
+    }
+}
+
 

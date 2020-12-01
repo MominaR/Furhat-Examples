@@ -91,6 +91,10 @@ class Hand(
         }
         return cards[idx]
     }
+
+    fun clearHand() {
+        cards = mutableListOf<Card>()
+    }
 }
 
 val User.hand : Hand

@@ -10,10 +10,10 @@ import furhatos.gestures.Gestures
 
 // Variables or texts which may be called more
 val rules = utterance {
-    +"Sure!"
-    +Gestures.Smile
+    Gestures.Smile
     +"The goal of Blackjack is to have a hand that totals higher than the dealer's, "
     +"but is not higher than 21."
+    delay(200)
     +" If your hand's total is higher than 21, it is called a bust "
     +"which means you are out."
     +"When the game starts, I will deal 2 face up cards to you,"
