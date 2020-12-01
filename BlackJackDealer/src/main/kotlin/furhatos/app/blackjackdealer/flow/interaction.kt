@@ -6,18 +6,14 @@ import furhatos.nlu.common.*
 import furhatos.util.Language
 import furhatos.app.blackjackdealer.nlu.*
 
-
-var score = (1..10).random()
-fun setScore(){
-    ++score
-}
+var furhatHand = Hand()
 
 val Greet : State = state(Interaction) {
 
     onEntry {
         random(
-                {furhat.ask("Hi there! Welcome to Cameo Club table! Do you want to play Black Jack?") },
-                {furhat.ask("Oh, Hello! Welcome to the Black Jack table! Do you wanna play?")}
+                { furhat.ask("Hi there! Welcome to Cameo Club table! Do you want to play Black Jack?") },
+                { furhat.ask("Oh, Hello! Welcome to the Black Jack table! Do you wanna play?")}
         )
 
     }
@@ -51,40 +47,61 @@ val AskForRules : State = state(Interaction) {
     }
 }
 
-fun GenerateACard(): String {
-    val rand1 = (0..3).random()
-    val rand2 = (0..12).random()
-    val suits = listOf("Hearts", "Clubs", "Diamonds", "Spades")
-    val cardNames = listOf("Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King")
-    return(cardNames[rand2] + " of " + suits[rand1])
+fun GenerateCard(): Card {
+    val value = (1..13).random()
+    val suit = (1..4).random()
+    return Card(value, suit)
 }
 
 val PlayingARound : State = state(Interaction) {
-
     onEntry {
         // Randomnly generating the cards
-        furhat.say("Your first card is " + GenerateACard())
-        furhat.say("Your second card is " + GenerateACard())
-        furhat.say("My card is " + GenerateACard())
+        users.current.hand.addCard(GenerateCard())
+        users.current.hand.addCard(GenerateCard())
+        furhat.say("Your first card is ${users.current.hand.getCard(0).toText()}")
+        furhat.say("Your second card is ${users.current.hand.getCard(1).toText()}")
+        furhatHand.addCard(GenerateCard())
+        furhat.say("My face up card is ${furhatHand.getCard(0).toText()}")
         furhat.ask("What is your move?")
-        users.current.hand.score
-        //setScore()
-
     }
+
     onReentry {
         furhat.ask("What is your next move? Hit or Stand?")
     }
+
     onResponse<Hit> {
-        furhat.say("Your next card is " + GenerateACard())
+        users.current.hand.addCard(GenerateCard())
+        val userScore = users.current.hand.getScore()
+        furhat.say("Your next card is ${users.current.hand.getCard(-1).toText()}, which makes your current score $userScore")
+        if (userScore > 21) {
+            furhat.say("You busted! Come back another time!")
+            goto(Idle)
+        }
         furhat.ask("What is your next move?")
-        //setScore()
     }
+
     onResponse<Stand> {
-        furhat.say("Okay, my second card is " + GenerateACard())
-        furhat.say("Your score is $score")
-        var temp = score+1
-        furhat.say("Your score is now ${users.current.hand.score}")
-        furhat.say("The game is over!")
+        furhatHand.addCard(GenerateCard())
+        furhat.say("My face down card was ${furhatHand.getCard(-1).toText()}")
+        var furhatScore = furhatHand.getScore()
+        furhat.say("My current score is $furhatScore")
+        while (furhatScore < 17) {
+            furhatHand.addCard(GenerateCard())
+            furhat.say("I took another card. It was ${furhatHand.getCard(-1).toText()}")
+            furhatScore = furhatHand.getScore()
+            furhat.say("That makes my current score $furhatScore")
+        }
+
+        val userScore = users.current.hand.getScore()
+        if (furhatScore > 21) {
+            furhat.say("I busted! You win!")
+        } else if (userScore > furhatScore) {
+            furhat.say("Your score was higher than mine. You win!")
+        } else if (userScore < furhatScore) {
+            furhat.say("My score was higher than yours. You lose!")
+        } else {
+            furhat.say("Our scores were equal. It's a draw!")
+        }
         goto(Idle)
     }
 
