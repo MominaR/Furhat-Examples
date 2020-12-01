@@ -6,6 +6,8 @@ import furhatos.app.blackjackdealer.nlu.*
 import furhatos.nlu.common.Goodbye
 import furhatos.gestures.Gestures
 
+
+
 // Variables or texts which may be called more
 val rules = utterance {
     +"Sure!"
@@ -33,6 +35,7 @@ val Idle: State = state {
     }
 
     onUserEnter(instant = true) {
+
         furhat.attend(it)
         goto(Greet)
     }
@@ -46,7 +49,6 @@ val Idle: State = state {
 }
 
 val Interaction: State = state {
-
     onResponse<RequestRules> {
         furhat.say(rules)
         // Add the whole list of rules and decide how will we handle utterances.
