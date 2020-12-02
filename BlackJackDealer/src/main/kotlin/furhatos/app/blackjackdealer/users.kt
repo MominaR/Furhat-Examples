@@ -97,5 +97,43 @@ class Hand(
     }
 }
 
+class ListofUsers(
+        var userIdList : MutableList<String> = mutableListOf<String>()
+)
+{
+    fun addUserId(id: String){
+        userIdList.add(id)
+    }
+    fun removeUserId(id: String){
+        userIdList.remove(id)
+    }
+    fun getPlayer(ind: Int) : String{
+        return userIdList[ind]
+    }
+}
+
+class UserData(
+        var name: String = " ",
+        var playing : Boolean = false
+
+        //var playing: Boolean = false,
+        //var played : Boolean = false,
+)
+{
+    fun getUserName() : String{
+        return name
+    }
+
+    fun setUserName(n : String) {
+        name = n
+    }
+}
+
+
 val User.hand : Hand
     get() = data.getOrPut(Hand::class.qualifiedName, Hand())
+
+val User.info : UserData
+    get() = data.getOrPut(UserData::class.qualifiedName, UserData())
+
+

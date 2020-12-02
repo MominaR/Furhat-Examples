@@ -9,11 +9,13 @@ import furhatos.gestures.Gestures
 
 var furhatHand = Hand()
 
+
 val Greet : State = state(Interaction) {
 
     onEntry {
+
         random(
-                { furhat.ask("Hi there! Welcome to Cameo Club table! Do you want to play Black Jack?") },
+                { furhat.ask("Hi there ! Welcome to Cameo Club table! Do you want to play Black Jack?") },
                 { furhat.ask("Oh, Hello! Welcome to the Black Jack table! Do you wanna play?")}
         )
 
@@ -21,12 +23,27 @@ val Greet : State = state(Interaction) {
 
     onResponse<Yes>{
         furhat.say("Oh, that is great!")
-        goto(AskForRules)
+        goto(AskForName)
     }
 
     onResponse<No>{
         furhat.say("That's sad. You are very welcome to spectate.")
     }
+}
+
+val AskForName : State = state(Interaction) {
+    onEntry {
+        random(
+                { furhat.ask("What is your name?") }
+        )
+    }
+
+    onResponse {
+        users.current.info.setUserName(it.text)
+        furhat.say("Nice name ${users.current.info.getUserName()}")
+        goto(AskForRules)
+    }
+
 }
 
 val AskForRules : State = state(Interaction) {
@@ -109,7 +126,7 @@ val PlayingARound : State = state(Interaction) {
         furhat.say("My current score is $furhatScore")
         while (furhatScore < 17) {
             furhatHand.addCard(GenerateCard())
-            furhat.say("I took another card. It was ${furhatHand.getCard(-1).toText()}")
+            furhat.say("I will take another card. It is ${furhatHand.getCard(-1).toText()}")
             furhatScore = furhatHand.getScore()
             furhat.say("That makes my current score $furhatScore")
         }

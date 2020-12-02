@@ -7,6 +7,8 @@ import furhatos.nlu.common.Goodbye
 import furhatos.gestures.Gestures
 
 
+var listofPlayers = ListofUsers()
+
 
 // Variables or texts which may be called more
 val rules = utterance {
@@ -35,11 +37,12 @@ val Idle: State = state {
     }
 
     onUserEnter(instant = true) {
-
         furhat.attend(it)
+        listofPlayers.addUserId(it.id)
         goto(Greet)
     }
     onUserLeave(instant = true) {
+        listofPlayers.removeUserId(it.id)
         if (users.count > 0) {
             furhat.attend(users.other)
         } else {
@@ -75,8 +78,14 @@ val Interaction: State = state {
         }
     }
 
-    onUserEnter(instant = true) {
-        furhat.glance(it)
+    onUserEnter() {
+        var currentUser = users.current.id
+        furhat.attend(it)
+        listofPlayers.addUserId(it.id)
+        furhat.say("I will attend you later.")
+        furhat.say("I have two players now ${listofPlayers.getPlayer(0)} and ${listofPlayers.getPlayer(1)}")
+        furhat.attend(currentUser)
+        reentry()
     }
 
 }
