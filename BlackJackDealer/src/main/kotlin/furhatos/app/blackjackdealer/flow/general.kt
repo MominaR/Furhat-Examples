@@ -16,8 +16,8 @@ val rules = utterance {
     delay(200)
     +" If your hand's total is higher than 21, it is called a bust "
     +"which means you are out."
-    +"When the game starts, I will deal 2 face up cards to you,"
-    +"and 2 face up and face down card to myself."
+    +"When the game starts, I will deal two face up cards to you,"
+    +"and one face up and one face down card to myself."
 }
 
 val Idle: State = state {

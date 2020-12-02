@@ -71,7 +71,7 @@ val PlayingARound : State = state(Interaction) {
                     {furhat.say("Wow! You got blackjack! You win!") },
                     {furhat.say("Winner winner, chicken dinner! Blackjack, you win!") }
             )
-            goto(Idle)
+            goto(EndOfRound)
         }
         random(
                 {furhat.say("Your score is $userScore.") },
@@ -96,8 +96,8 @@ val PlayingARound : State = state(Interaction) {
         val userScore = users.current.hand.getScore()
         furhat.say("Your next card is ${users.current.hand.getCard(-1).toText()}, which makes your current score $userScore")
         if (userScore > 21) {
-            furhat.say("You busted! Come back another time!")
-            goto(Idle)
+            furhat.say("You busted! You lose!")
+            goto(EndOfRound)
         }
         furhat.ask("What is your next move?")
     }
@@ -124,7 +124,8 @@ val PlayingARound : State = state(Interaction) {
         } else {
             furhat.say("Our scores were equal. It's a draw!")
         }
-        goto(Idle)
+
+        goto(EndOfRound)
     }
 
     onResponse<RequestOptions> {
@@ -134,4 +135,22 @@ val PlayingARound : State = state(Interaction) {
     }
 
 
+}
+
+val EndOfRound : State = state(Interaction) {
+    onEntry {
+        random(
+                { furhat.ask("Do you want to play another round?") }
+        )
+    }
+
+    onResponse<Yes> {
+        furhat.say("Great! Let's go!")
+        goto(PlayingARound)
+    }
+
+    onResponse<No> {
+        furhat.say("OK! See you next time!")
+        goto(Idle)
+    }
 }
