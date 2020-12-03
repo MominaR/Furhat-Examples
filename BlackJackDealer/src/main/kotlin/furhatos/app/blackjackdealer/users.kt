@@ -32,8 +32,6 @@ class Card (
 
 class Hand(
         var cards : MutableList<Card> = mutableListOf<Card>()
-        //var playing: Boolean = false,
-        //var played : Boolean = false,
 )
 {
     fun getSignedScore(): Int {
@@ -97,27 +95,8 @@ class Hand(
     }
 }
 
-class ListofUsers(
-        var userIdList : MutableList<String> = mutableListOf<String>()
-)
-{
-    fun addUserId(id: String){
-        userIdList.add(id)
-    }
-    fun removeUserId(id: String){
-        userIdList.remove(id)
-    }
-    fun getPlayer(ind: Int) : String{
-        return userIdList[ind]
-    }
-}
-
 class UserData(
-        var name: String = " ",
-        var playing : Boolean = false
-
-        //var playing: Boolean = false,
-        //var played : Boolean = false,
+        var name: String = " "
 )
 {
     fun getUserName() : String{

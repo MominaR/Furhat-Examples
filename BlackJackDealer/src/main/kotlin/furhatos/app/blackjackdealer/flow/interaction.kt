@@ -11,18 +11,18 @@ var furhatHand = Hand()
 
 
 val Greet : State = state(Interaction) {
-
     onEntry {
-
-        random(
-                { furhat.ask("Hi there ! Welcome to Cameo Club table! Do you want to play Black Jack?") },
-                { furhat.ask("Oh, Hello! Welcome to the Black Jack table! Do you wanna play?")}
-        )
-
+        furhat.ask({ random {
+            +"Hi there ! Welcome to this Cameo Club table! Do you want to play BlackJack?"
+            +"Oh, Hello! Welcome to the BlackJack table! Do you wanna play?"
+        } })
     }
 
     onResponse<Yes>{
-        furhat.say("Oh, that is great!")
+        furhat.say { random {
+            +"That's great!"
+            +"Spectacular!"
+        } }
         goto(AskForName)
     }
 
@@ -85,10 +85,10 @@ val PlayingARound : State = state(Interaction) {
         if (userScore == 21) {
             furhat.gesture(Gestures.Smile)
             random(
-                    {furhat.say("Wow! You got blackjack! You win!") },
-                    {furhat.say("Winner winner, chicken dinner! Blackjack, you win!") }
+                    {furhat.say("Wow, you got BlackJack! That'll be hard to beat!") },
+                    {furhat.say("You're on a roll!") }
             )
-            goto(EndOfRound)
+            goto(PlayDealersHand)
         }
         random(
                 {furhat.say("Your score is $userScore.") },
@@ -115,11 +115,30 @@ val PlayingARound : State = state(Interaction) {
         if (userScore > 21) {
             furhat.say("You busted! You lose!")
             goto(EndOfRound)
+        } else if (userScore == 21) {
+            random(
+                    {furhat.say("Wow, you got BlackJack! That'll be hard to beat!") }
+            )
+            goto(PlayDealersHand)
+        } else {
+            furhat.ask("What is your next move?")
         }
-        furhat.ask("What is your next move?")
     }
 
     onResponse<Stand> {
+        furhat.say("Very well!")
+        goto(PlayDealersHand)
+    }
+
+    onResponse<RequestOptions> {
+        furhat.say("For another card, say 'hit'.")
+        furhat.say("Otherwise, say 'stand'.")
+        reentry()
+    }
+}
+
+val PlayDealersHand : State = state(Interaction) {
+    onEntry {
         furhatHand.addCard(GenerateCard())
         furhat.say("My face down card was ${furhatHand.getCard(-1).toText()}")
         var furhatScore = furhatHand.getScore()
@@ -144,14 +163,6 @@ val PlayingARound : State = state(Interaction) {
 
         goto(EndOfRound)
     }
-
-    onResponse<RequestOptions> {
-        furhat.say("For another card, say 'hit'.")
-        furhat.say("Otherwise, say 'stand'.")
-        reentry()
-    }
-
-
 }
 
 val EndOfRound : State = state(Interaction) {
