@@ -15,6 +15,28 @@ class RequestRules : Intent() {
     }
 }
 
+class RequestRule1 : Intent() {
+    override fun getExamples(lang: Language): List<String> {
+        return listOf(
+                "What should I aim?",
+                "What is Blackjack?",
+                "How does Blackjack work?"
+        )
+    }
+}
+
+class RequestRule2 : Intent() {
+    override fun getExamples(lang: Language): List<String> {
+        return listOf(
+                "What is Bust?",
+                "Can you repeat the second rule?",
+                "Please explain bust again.",
+                "Can you repeat Rule 2?"
+        )
+    }
+}
+
+
 class Hit : Intent() {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
@@ -36,6 +58,36 @@ class Stand : Intent() {
         )
     }
 }
+
+class Play : Intent() {
+    override fun getExamples(lang: Language): List<String> {
+        return listOf(
+                "Yes",
+                "Take my money!"
+        )
+    }
+}
+
+class ExplainHit : Intent() {
+    override fun getExamples(lang: Language): List<String> {
+        return listOf(
+                "What does hit mean?",
+                "What happens if I say one more?",
+                "What does head mean?"
+        )
+    }
+}
+
+class ExplainBust : Intent() {
+    override fun getExamples(lang: Language): List<String> {
+        return listOf(
+                "What happens if I bust?",
+                "What happens if you bust?",
+                "What happens if I get 21?"
+        )
+    }
+}
+
 
 class RequestOptions : Intent() {
     override fun getExamples(lang: Language): List<String> {

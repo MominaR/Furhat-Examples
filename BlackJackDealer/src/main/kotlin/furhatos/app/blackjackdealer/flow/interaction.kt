@@ -23,12 +23,31 @@ val Greet : State = state(Interaction) {
             +"That's great!"
             +"Spectacular!"
         } }
-        goto(AskForName)
+      goto(AskForName )
     }
 
     onResponse<No>{
         furhat.say("That's sad. You are very welcome to spectate.")
     }
+
+    onResponse<Hit>{
+        furhat.say("Hold your horses!")
+        delay(200)
+        furhat.say("The game has not started yet!")
+        reentry()
+    }
+
+    onResponse<Stand>{
+        furhat.say("Hold your horses!")
+        delay(200)
+        furhat.say("The game has not started yet!")
+        reentry()
+    }
+
+    onReentry {
+        furhat.ask("Do you wanna play?")
+    }
+
 }
 
 val AskForName : State = state(Interaction) {
@@ -41,12 +60,215 @@ val AskForName : State = state(Interaction) {
     onResponse {
         users.current.info.setUserName(it.text)
         furhat.say("Nice name ${users.current.info.getUserName()}")
-        goto(AskForRules)
+        goto(AskForGame)
     }
 
 }
 
-val AskForRules : State = state(Interaction) {
+val AskForGame : State=state(Interaction){
+    onEntry {
+        random(
+                { furhat.ask("Do you know Blackjack?") }
+        )
+    }
+    onResponse<Yes> {
+        furhat.say("Great!")
+        goto(AskForRulesAdvanced)
+
+    }
+
+    onResponse<No> {
+        furhat.say(rule1)
+        goto(AskForRulesBeginner)
+    }
+
+    onResponse<Hit>{
+        furhat.say("Hold your horses!")
+        delay(200)
+        furhat.say("The game has not started yet!")
+        reentry()
+    }
+
+    onResponse<Stand>{
+        furhat.say("Hold your horses!")
+        delay(200)
+        furhat.say("The game has not started yet!")
+        reentry()
+    }
+
+    onReentry {
+        furhat.say("Oh, you know some basic concepts.")
+        delay(200)
+        furhat.ask("Have you played Blackjack before?")
+    }
+}
+
+val AskForRulesBeginner : State=state(Interaction){
+    onEntry {
+        random(
+                { furhat.ask("Do you want me to tell you the rules?") }
+        )
+    }
+
+    onResponse<Yes> {
+        furhat.say("Sure!")
+        delay(200)
+        furhat.say(rule2)
+        goto(AskForComprehensionRule2)
+    }
+
+    onResponse<No> {
+        furhat.say("Okay, Let's start playing the game. You can always ask for the rules during the game.")
+        goto(PlayingARound)
+    }
+
+    onResponse<Hit>{
+        furhat.say("Hold your horses!")
+        delay(200)
+        furhat.say("The game has not started yet!")
+        reentry()
+    }
+
+    onResponse<Stand>{
+        furhat.say("Hold your horses!")
+        delay(200)
+        furhat.say("The game has not started yet!")
+        reentry()
+    }
+
+    onReentry {
+        furhat.say("You know some basic concepts.")
+        delay(200)
+        furhat.say("Cool!")
+        delay(200)
+        furhat.ask("But, what about the rules?")
+    }
+
+}
+
+val AskForRulesAdvanced : State=state(Interaction){
+    onEntry {
+        random(
+                { furhat.ask("Do you want me to tell you the rules in my table?") }
+        )
+    }
+
+    onResponse<Yes> {
+        furhat.say("Okay!")
+        delay(100)
+        furhat.say("As you know in Blackjack you should have a hand higher than mine, but less than 21!")
+        furhat.say(rule2)
+        delay(500)
+        furhat.say(rule3)
+        delay(500)
+        goto(AskForBeingReadyToPlay)
+    }
+
+    onResponse<No> {
+        furhat.say("Okay! Let's not loose more time!")
+        goto(PlayingARound)
+    }
+
+    onResponse<Hit>{
+        furhat.say("Hold your horses!")
+        delay(200)
+        furhat.say("The game has not started yet!")
+        reentry()
+    }
+
+    onResponse<Stand>{
+        furhat.say("Hold your horses!")
+        delay(200)
+        furhat.say("The game has not started yet!")
+        reentry()
+    }
+
+    onReentry {
+        furhat.ask("Do you want me to explain the Rules?")
+    }
+
+}
+
+val AskForComprehensionRule2 : State=state(Interaction){
+    onEntry {
+        random(
+                { furhat.ask("Do you follow Rule 2?") },
+                { furhat.ask("Got it?") }
+        )
+    }
+
+    onResponse<Yes> {
+        furhat.say("Great!")
+        delay(200)
+        furhat.say(rule3)
+        goto(AskForComprehensionRule3)
+    }
+
+    onResponse<No> {
+        furhat.say("No worries! Let me repeat!")
+        furhat.say(rule2)
+        reentry()
+    }
+
+
+
+    onReentry {
+        delay(200)
+        furhat.ask("Do you get rule 2 now?")
+    }
+
+
+}
+
+val AskForComprehensionRule3 : State=state(Interaction){
+    onEntry {
+        random(
+                { furhat.ask("Do you follow?") },
+                { furhat.ask("Got it?") }
+        )
+    }
+
+    onResponse<Yes> {
+        furhat.say("Great!")
+        goto(AskForBeingReadyToPlay)
+    }
+
+    onResponse<No> {
+        furhat.say("No problem!I will repeat it!")
+        delay(200)
+        furhat.say(rule3)
+        reentry()
+    }
+
+
+    onReentry {
+        furhat.ask("Do you understand rule 3 now?")
+    }
+
+}
+
+val AskForBeingReadyToPlay : State=state(Interaction){
+    onEntry {
+        random(
+                { furhat.ask("Are you ready to play?") }
+        )
+    }
+
+    onResponse<Yes> {
+        furhat.say("Let's play, then!")
+        goto(PlayingARound)
+    }
+
+    onResponse<No> {
+        furhat.say("Ohh, okay!")
+        goto(AskForRulesAdvanced)
+    }
+
+
+}
+
+
+/*val AskForRules : State = state(Interaction) {
     onEntry {
         random(
                 { furhat.ask("Do you want me to tell you the rules for the game?") }
@@ -64,7 +286,7 @@ val AskForRules : State = state(Interaction) {
         furhat.say("Okay, Let's start playing the game.")
         goto(PlayingARound)
     }
-}
+}*/
 
 fun GenerateCard(): Card {
     val value = (1..13).random()
@@ -135,6 +357,9 @@ val PlayingARound : State = state(Interaction) {
         furhat.say("Otherwise, say 'stand'.")
         reentry()
     }
+
+
+
 }
 
 val PlayDealersHand : State = state(Interaction) {
@@ -172,13 +397,16 @@ val EndOfRound : State = state(Interaction) {
         )
     }
 
-    onResponse<Yes> {
+    onResponse<Play> {
         furhat.say("Great! Let's go!")
         goto(PlayingARound)
     }
+
 
     onResponse<No> {
         furhat.say("OK! See you next time!")
         goto(Idle)
     }
+
+
 }
