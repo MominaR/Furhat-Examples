@@ -102,7 +102,8 @@ val AskForGame : State=state(Interaction){
 val AskForRulesBeginner : State=state(Interaction){
     onEntry {
         furhat.ask { random {
-            +"Do you know the rules?"
+            +"Shall I explain the rules?"
+            +"Do you want me to explain the rules?"
             +"Do you want me to tell you the rules?"
         } }
     }
@@ -158,7 +159,7 @@ val AskForComprehensionRule2 : State=state(Interaction){
     }
 
     onReentry {
-        furhat.say { random {
+        furhat.ask { random {
             +"Are you familiar with the term bust now, ${users.current.info.getUserName()}?"
             +"Do you follow?"
         } }
@@ -237,7 +238,7 @@ val PlayingARound : State = state(Interaction) {
         val userScore = users.current.hand.getScore()
         if (users.current.hand.getCard(0).getCardScore() >= 10) {
             furhat.say { random {
-                +"Your first card is a ${users.current.hand.getCard(0).toText()}. What a start, ${users.current.info.getUserName()}!"
+                +"Your first card is ${users.current.hand.getCard(0).toText()}. What a start, ${users.current.info.getUserName()}!"
                 +"You're lucky today! Your first card is ${users.current.hand.getCard(0).toText()}!"
             } }
         } else {
@@ -508,7 +509,7 @@ val PlayDealersHand : State = state(Interaction) {
             furhat.say { random {
                 +"My score was higher than yours. I'm sorry, ${users.current.info.getUserName()}, you lose!"
                 +"Sorry, ${users.current.info.getUserName()}, my score beats yours. You lose!"
-                +"That means you lose, ${users.current.info.getUserName()}, since my hand totalls higher than yours."
+                +"That means you lose, ${users.current.info.getUserName()}, since my hand totals higher than yours."
             } }
             furhat.say { random {
                 +"Better luck next time!"
@@ -545,6 +546,14 @@ val EndOfRound : State = state(Interaction) {
         goto(PlayingARound)
     }
 
+    onResponse<Yes> {
+        furhat.say { random {
+            +"Terrific! Let's go!"
+            +"Sweet! Let's see who takes it this time!"
+            +"Cool! Let's see whose side the cards are on this time!"
+        } }
+        goto(PlayingARound)
+    }
 
     onResponse<No> {
         furhat.say { random {

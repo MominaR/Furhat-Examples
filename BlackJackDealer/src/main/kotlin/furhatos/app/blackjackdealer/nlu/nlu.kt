@@ -44,6 +44,8 @@ class Hit : Intent() {
                 "head",
                 "Hit me with another card",
                 "One more",
+                "another card",
+                "another card please",
                 "Give me another card"
         )
     }
@@ -54,8 +56,10 @@ class Stand : Intent() {
         return listOf(
                 "stand",
                 "send",
+                "stay",
                 "I don't want another card",
-                "stop"
+                "stop",
+                "no more"
         )
     }
 }
@@ -84,7 +88,9 @@ class ExplainStand : Intent() {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
                 "What does stand mean",
-                "What do I say if I don't want another card"
+                "What do I say if I don't want another card",
+                "What is stand",
+                "What is send"
         )
     }
 }
@@ -138,6 +144,8 @@ class RequestHelp : Intent() {
                 "what is the optimal move",
                 "how can I win",
                 "I need help",
+                "need help",
+                "help",
                 "what do you suggest",
                 "what should I do"
         )
