@@ -28,6 +28,18 @@ class Card (
         }
         return prefix + " " + valueToText() + " of " + suitToText()
     }
+
+    fun getCardScore(): Int {
+        var cardScore = 0
+        if (value >= 10) {
+            cardScore = 10
+        } else if (value == 1) {
+            cardScore = 11
+        } else {
+            cardScore = value
+        }
+        return cardScore
+    }
 }
 
 class Hand(

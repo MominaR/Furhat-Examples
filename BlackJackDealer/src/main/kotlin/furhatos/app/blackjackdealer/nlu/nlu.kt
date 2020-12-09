@@ -43,7 +43,8 @@ class Hit : Intent() {
                 "Hit",
                 "head",
                 "Hit me with another card",
-                "One more"
+                "One more",
+                "Give me another card"
         )
     }
 }
@@ -63,7 +64,7 @@ class Play : Intent() {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
                 "Yes",
-                "Take my money!"
+                "Take my money"
         )
     }
 }
@@ -71,9 +72,19 @@ class Play : Intent() {
 class ExplainHit : Intent() {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
-                "What does hit mean?",
-                "What happens if I say one more?",
-                "What does head mean?"
+                "What does hit mean",
+                "What happens if I ask for another card",
+                "What do I say if I want another card",
+                "What is hit"
+        )
+    }
+}
+
+class ExplainStand : Intent() {
+    override fun getExamples(lang: Language): List<String> {
+        return listOf(
+                "What does stand mean",
+                "What do I say if I don't want another card"
         )
     }
 }
@@ -81,9 +92,8 @@ class ExplainHit : Intent() {
 class ExplainBust : Intent() {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
-                "What happens if I bust?",
-                "What happens if you bust?",
-                "What happens if I get 21?"
+                "What happens if I bust",
+                "What happens if you bust"
         )
     }
 }
