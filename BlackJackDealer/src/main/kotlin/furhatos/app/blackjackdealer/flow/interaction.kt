@@ -259,17 +259,22 @@ val PlayingARound : State = state(Interaction) {
                 +"Wow, ${users.current.info.getUserName()}, you got BlackJack! That'll be hard to tie!"
                 +"Blackjack! You're on a roll, ${users.current.info.getUserName()}!"
             } }
-            goto(PlayDealersHand)
+        } else {
+            furhat.say {
+                random {
+                    +"That means your current score is $userScore."
+                    +"This totals $userScore."
+                }
+            }
         }
-        furhat.say { random {
-            +"That means your current score is $userScore."
-            +"This totals $userScore."
-        } }
         furhatHand.addCard(GenerateCard())
         furhat.say { random {
             +"My face up card is ${furhatHand.getCard(0).toText()}."
             +"Seems my face up card is ${furhatHand.getCard(0).toText()}."
         } }
+        if (userScore == 21) {
+            goto(PlayDealersHand)
+        }
         furhat.ask { random {
             +"What is your move, ${users.current.info.getUserName()}?"
             +"What would you like to do? Hit or stand?"
