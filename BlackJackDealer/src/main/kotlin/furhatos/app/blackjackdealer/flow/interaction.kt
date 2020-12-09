@@ -165,7 +165,7 @@ val AskForRulesAdvanced : State=state(Interaction){
     }
 
     onResponse<No> {
-        furhat.say("Okay! Let's not loose more time!")
+        furhat.say("Okay! Let's not lose more time!")
         goto(PlayingARound)
     }
 
@@ -358,6 +358,71 @@ val PlayingARound : State = state(Interaction) {
         reentry()
     }
 
+    onResponse<RequestSpecificCard> {
+        Gestures.GazeAway
+        random(
+                {furhat.say("Don't try that here, my boss is a bad guy.") },
+                {furhat.say("This is not a place to cheat!") },
+                {furhat.say("I can't give you the card you want.") }
+
+        )
+        furhat.say("I will pretend I didn't hear that.")
+        reentry()
+    }
+
+    onResponse<RequestHelp> {
+        val userScore = users.current.hand.getScore()
+        var furhatScore = furhatHand.getScore()
+        Gestures.Thoughtful
+        furhat.say("Your score is $userScore.")
+        furhat.say("My current score is $furhatScore")
+        if(userScore > 16){
+            furhat.say("The optimal move would be Stand")
+        } else if (userScore >= 13 && userScore <= 16){
+            if (furhatScore > 6){
+                furhat.say("The optimal move would be Hit")
+            } else {
+                furhat.say("The optimal move would be Stand")
+            }
+        } else if (userScore == 12) {
+            if (furhatScore > 3 && furhatScore < 7) {
+                furhat.say("The optimal move would be Stand")
+            } else {
+                furhat.say("The optimal move would be Hit")
+            }
+        } else {
+            furhat.say("The optimal move would be Hit")
+        }
+
+        reentry()
+    }
+
+    onResponse<Surrender> {
+        furhat.say("Better luck next time.")
+        goto(EndOfRound)
+    }
+
+    onResponse<TellMyScore> {
+        val userScore = users.current.hand.getScore()
+        furhat.say("Your score is $userScore.")
+        reentry()
+    }
+    onResponse<TellFurhatScore> {
+        var furhatScore = furhatHand.getScore()
+        furhat.say("My current score is $furhatScore")
+        reentry()
+    }
+    onResponse<TellMyCards> {
+        furhat.say("Your cards are")
+        for (card in users.current.hand.cards){
+            furhat.say(card.toText())
+        }
+        reentry()
+    }
+    onResponse<TellFurhatCard> {
+        furhat.say("My face up card is ${furhatHand.getCard(0).toText()}")
+        reentry()
+    }
 
 
 }

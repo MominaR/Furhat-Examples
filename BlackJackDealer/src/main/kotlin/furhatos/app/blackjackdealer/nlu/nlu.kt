@@ -101,4 +101,80 @@ class RequestOptions : Intent() {
     }
 }
 
+class RequestSpecificCard : Intent() {
+    override fun getExamples(lang: Language): List<String> {
+        return listOf(
+                "can you give me a specific card",
+                "give me the card I need and we split the money",
+                "give me ace",
+                "give me ten",
+                "give me nine",
+                "give me eight",
+                "give me seven",
+                "give me six",
+                "give me five",
+                "give me four",
+                "give me three",
+                "give me two",
+                "give me one"
+        )
+    }
+}
+
+class RequestHelp : Intent() {
+    override fun getExamples(lang: Language): List<String> {
+        return listOf(
+                "what is the best move now",
+                "what is the optimal move",
+                "how can I win",
+                "I need help",
+                "what do you suggest",
+                "what should I do"
+        )
+    }
+}
+
+class Surrender : Intent() {
+    override fun getExamples(lang: Language): List<String> {
+        return listOf(
+                "Take my money",
+                "I give up"
+        )
+    }
+}
+
+class TellMyScore : Intent() {
+    override fun getExamples(lang: Language): List<String> {
+        return listOf(
+                "What is my score",
+                "How much do I have"
+        )
+    }
+}
+
+class TellFurhatScore : Intent() {
+    override fun getExamples(lang: Language): List<String> {
+        return listOf(
+                "What is your score",
+                "How much do you have"
+        )
+    }
+}
+
+class TellMyCards : Intent() {
+    override fun getExamples(lang: Language): List<String> {
+        return listOf(
+                "What are my cards"
+        )
+    }
+}
+
+class TellFurhatCard : Intent() {
+    override fun getExamples(lang: Language): List<String> {
+        return listOf(
+                "What is your card"
+        )
+    }
+}
+
 
