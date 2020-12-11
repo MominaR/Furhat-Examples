@@ -48,6 +48,23 @@ val rule3comprehensive = utterance {
     +"you say Hit!, otherwise you say Stand!"
 }
 
+val rule4 = utterance {
+    Gestures.Smile
+    +"Unless you have busted, I will play out my hand."
+    delay(200)
+    +"I will do this by taking additional cards until my score is 17 or more."
+}
+
+val rule4comprehensive = utterance {
+    Gestures.Smile
+    +"If you have chosen to stand and not yet busted, I will also play out my hand."
+    delay(200)
+    +"I will do this according to a pre-defined strategy,"
+    +"where I will hit until my score is 17 or more,"
+    delay(200)
+    +"no matter what your score is."
+}
+
 val RuleHit = utterance {
     Gestures.Smile
     +"You say hit to ask for another card."
@@ -79,7 +96,12 @@ val Idle: State = state {
     }
 
     onEntry {
-        furhat.attendNobody()
+        if (users.count > 1) {
+            furhat.attend(users.other)
+            goto(Greet)
+        } else {
+            furhat.attendNobody()
+        }
     }
 
     onUserEnter(instant = true) {

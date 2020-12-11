@@ -10,7 +10,10 @@ class RequestRules : Intent() {
         return listOf(
                 "what are the rules",
                 "how does it work",
-                "Can you go over the rules?"
+                "Can you go over the rules?",
+                "rules",
+                "explain rules",
+                "Can you explain the rules?"
         )
     }
 }

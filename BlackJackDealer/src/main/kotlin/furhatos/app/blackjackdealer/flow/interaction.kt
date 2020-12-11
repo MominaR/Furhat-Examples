@@ -23,7 +23,7 @@ val Greet : State = state(Interaction) {
             +"That's great!"
             +"Spectacular!"
         } }
-      goto(AskForName )
+      goto(AskForName)
     }
 
     onResponse<No>{
@@ -32,6 +32,7 @@ val Greet : State = state(Interaction) {
             +"This table has been hot all day. It's a shame you'll miss out!"
             +"Not a gambler, huh? Well, you're welcome back at any time!"
         } }
+        goto(Idle)
     }
 
     onReentry {
@@ -176,7 +177,9 @@ val AskForComprehensionRule3 : State=state(Interaction){
 
     onResponse<Yes> {
         furhat.say("Great!")
-        goto(AskForBeingReadyToPlay)
+        delay(200)
+        furhat.say(rule4)
+        goto(AskForComprehensionRule4)
     }
 
     onResponse<No> {
@@ -191,11 +194,43 @@ val AskForComprehensionRule3 : State=state(Interaction){
 
     onReentry {
         furhat.ask { random {
-            +"Do you understand how the game is played now?"
+            +"Do you understand the concepts hit and stand?"
             +"Are you following?"
         } }
     }
+}
 
+val AskForComprehensionRule4 : State=state(Interaction){
+    onEntry {
+        furhat.ask { random {
+            +"Get it?"
+            +"Do you follow?"
+        } }
+    }
+
+    onResponse<Yes> {
+        furhat.say("Great!")
+        goto(AskForBeingReadyToPlay)
+    }
+
+    onResponse<No> {
+        furhat.say { random {
+            +"No problem, I will repeat it!"
+            +"Okey, let me repeat!"
+            +"No worries, let me explain it more clearly!"
+        } }
+        delay(200)
+        furhat.say(rule4comprehensive)
+        reentry()
+    }
+
+    onReentry {
+        furhat.ask { random {
+            +"Do you understand how the game is played now?"
+            +"Do you understand how I will play out my hand?"
+            +"Are you following?"
+        } }
+    }
 }
 
 val AskForBeingReadyToPlay : State=state(Interaction){
